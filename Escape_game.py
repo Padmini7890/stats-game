@@ -62,11 +62,11 @@ def main():
     for i, q in enumerate(selected_questions):
         st.write(f"### Question {i+1}: {q['question']}")
         st.info("Hint: " + q["fact"])
-        user_choice = st.radio("Choose an answer:", q["options"], key=i)
+        user_choice = st.radio("Choose an answer:", q["options"], key=f"q{i}", index=None)
         
-        if user_choice.startswith(q["answer"]):
+        if user_choice and user_choice.startswith(q["answer"]):
             st.success("✅ Correct! " + q["fact"])
-        else:
+        elif user_choice:
             st.error("❌ Wrong! " + q["fact"])
             crisis_level += 1
         
