@@ -24,13 +24,9 @@ GREEN = (0, 255, 0)
 CAR_WIDTH, CAR_HEIGHT = 50, 100
 car_x, car_y = WIDTH//2, HEIGHT - 150
 
-# Load car image or use placeholder
-try:
-    car_image = pygame.image.load("car.png")
-    car_image = pygame.transform.scale(car_image, (CAR_WIDTH, CAR_HEIGHT))
-except pygame.error:
-    print("Warning: car.png not found. Using a placeholder.")
-    car_image = None
+# Placeholder for car image
+def draw_car(x, y):
+    pygame.draw.rect(screen, BLUE, (x, y, CAR_WIDTH, CAR_HEIGHT))
 
 # Obstacle settings
 obstacle_width, obstacle_height = 50, 100
@@ -73,10 +69,7 @@ while running:
         pygame.draw.rect(screen, YELLOW, (395, i, 10, 20))  # Lane markings
     
     # Draw car
-    if car_image:
-        screen.blit(car_image, (car_x, car_y))
-    else:
-        pygame.draw.rect(screen, BLUE, (car_x, car_y, CAR_WIDTH, CAR_HEIGHT))
+    draw_car(car_x, car_y)
     
     # Draw obstacles
     for obs in obstacles:
