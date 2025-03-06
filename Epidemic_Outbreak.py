@@ -14,11 +14,14 @@ def load_data():
 
 data = load_data()
 
-# Game variables
+# Initialize session state variables
 def reset_game():
-    return 1.0, 100, 100
+    st.session_state.infection_rate = 1.0
+    st.session_state.public_trust = 100
+    st.session_state.healthcare_capacity = 100
 
-infection_rate, public_trust, healthcare_capacity = reset_game()
+if "infection_rate" not in st.session_state:
+    reset_game()
 
 def plot_trends():
     fig, ax = plt.subplots()
@@ -31,44 +34,42 @@ def plot_trends():
     st.pyplot(fig)
 
 def make_decision(decision):
-    global infection_rate, public_trust, healthcare_capacity
     if decision == "Lockdown":
-        infection_rate *= 0.7  # Reduce infections
-        public_trust -= 10  # People don't like lockdowns
+        st.session_state.infection_rate *= 0.7  # Reduce infections
+        st.session_state.public_trust -= 10  # People don't like lockdowns
     elif decision == "Mass Vaccination":
-        infection_rate *= 0.5  # Strong reduction
-        public_trust += 10  # Public approves
-        healthcare_capacity += 10  # Less burden on hospitals
+        st.session_state.infection_rate *= 0.5  # Strong reduction
+        st.session_state.public_trust += 10  # Public approves
+        st.session_state.healthcare_capacity += 10  # Less burden on hospitals
     elif decision == "No Restrictions":
-        infection_rate *= 1.5  # Infections rise
-        public_trust += 5  # Public enjoys freedom
-        healthcare_capacity -= 20  # Hospitals get overwhelmed
+        st.session_state.infection_rate *= 1.5  # Infections rise
+        st.session_state.public_trust += 5  # Public enjoys freedom
+        st.session_state.healthcare_capacity -= 20  # Hospitals get overwhelmed
     elif decision == "Travel Ban":
-        infection_rate *= 0.8  # Some effect
-        public_trust -= 5  # Some people dislike it
+        st.session_state.infection_rate *= 0.8  # Some effect
+        st.session_state.public_trust -= 5  # Some people dislike it
     elif decision == "Misinformation Campaign":
-        infection_rate *= 2.0  # Disaster!
-        public_trust += 20  # People believe false info
-        healthcare_capacity -= 30  # Hospitals collapse
+        st.session_state.infection_rate *= 2.0  # Disaster!
+        st.session_state.public_trust += 20  # People believe false info
+        st.session_state.healthcare_capacity -= 30  # Hospitals collapse
     
     # Ensure values remain within limits
-    public_trust = max(0, min(100, public_trust))
-    healthcare_capacity = max(0, min(100, healthcare_capacity))
+    st.session_state.public_trust = max(0, min(100, st.session_state.public_trust))
+    st.session_state.healthcare_capacity = max(0, min(100, st.session_state.healthcare_capacity))
 
 def game_status():
-    st.write(f"### Infection Rate: {infection_rate:.2f}x")
-    st.progress(infection_rate / 3.0)
-    st.write(f"### Public Trust: {public_trust}%")
-    st.progress(public_trust / 100)
-    st.write(f"### Healthcare Capacity: {healthcare_capacity}%")
-    st.progress(healthcare_capacity / 100)
+    st.write(f"### Infection Rate: {st.session_state.infection_rate:.2f}x")
+    st.progress(st.session_state.infection_rate / 3.0)
+    st.write(f"### Public Trust: {st.session_state.public_trust}%")
+    st.progress(st.session_state.public_trust / 100)
+    st.write(f"### Healthcare Capacity: {st.session_state.healthcare_capacity}%")
+    st.progress(st.session_state.healthcare_capacity / 100)
 
 def main():
     st.title("Epidemic Outbreak: Data-Driven Response")
     st.write("Use real-world data to control a pandemic. Make strategic decisions to save lives!")
     plot_trends()
     
-    global infection_rate, public_trust, healthcare_capacity
     game_over = False
     
     for turn in range(5):
@@ -91,11 +92,11 @@ def main():
             time.sleep(1)
         
         # Check for win/loss conditions
-        if infection_rate >= 3.0 or healthcare_capacity <= 0:
+        if st.session_state.infection_rate >= 3.0 or st.session_state.healthcare_capacity <= 0:
             st.error("The outbreak is out of control! You lost!")
             game_over = True
             break
-        if infection_rate <= 0.5 and public_trust >= 70:
+        if st.session_state.infection_rate <= 0.5 and st.session_state.public_trust >= 70:
             st.success("You successfully controlled the outbreak! You win!")
             game_over = True
             break
@@ -104,8 +105,7 @@ def main():
         st.warning("The pandemic is ongoing. You managed to delay it, but challenges remain.")
     
     if st.button("New Game"):
-        global infection_rate, public_trust, healthcare_capacity
-        infection_rate, public_trust, healthcare_capacity = reset_game()
+        reset_game()
         st.experimental_rerun()
 
 if __name__ == "__main__":
