@@ -96,9 +96,12 @@ if not st.session_state.game_over:
         "Invest in Solar Energy", "Subsidize Public Transport", "Increase Industrial Production", "Ban Plastic Usage", "Build More Parks", "Relax Pollution Laws",
         "Invest in Green Technology", "Impose Higher Taxes", "Disaster Relief Fund", "Urban Expansion"
     ]
-    for choice in choices:
-        if st.button(choice):
-            make_decision(choice)
+    button_cols = st.columns(2)
+    
+    for i, choice in enumerate(choices):
+        with button_cols[i % 2]:
+            if st.button(choice):
+                make_decision(choice)
 
 # Display random event
 if st.session_state.events:
