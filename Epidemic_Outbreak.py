@@ -15,9 +15,10 @@ def load_data():
 data = load_data()
 
 # Game variables
-infection_rate = 1.0  # Starts at 1.0x, higher means more infections
-public_trust = 100  # 100% trust level
-healthcare_capacity = 100  # 100% means hospitals can handle all cases
+def reset_game():
+    return 1.0, 100, 100
+
+infection_rate, public_trust, healthcare_capacity = reset_game()
 
 def plot_trends():
     fig, ax = plt.subplots()
@@ -101,6 +102,11 @@ def main():
         
     if not game_over:
         st.warning("The pandemic is ongoing. You managed to delay it, but challenges remain.")
+    
+    if st.button("New Game"):
+        global infection_rate, public_trust, healthcare_capacity
+        infection_rate, public_trust, healthcare_capacity = reset_game()
+        st.experimental_rerun()
 
 if __name__ == "__main__":
     main()
