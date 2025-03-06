@@ -34,7 +34,7 @@ def process_guess():
                     st.session_state.winner = "Player 1 Wins!"
                 else:
                     move = max(10, 50 - abs(st.session_state.secret_number_p1 - guess_num))
-                    st.session_state.car1_x = min(st.session_state.car1_x + move, 100)
+                    st.session_state.car1_x = min(st.session_state.car1_x + move, 99)  # Prevent reaching 100% early
             else:
                 st.session_state.hint_p2 = (
                     "Too Low! 🔽" if guess_num < st.session_state.secret_number_p2 else
@@ -45,7 +45,7 @@ def process_guess():
                     st.session_state.winner = "Player 2 Wins!"
                 else:
                     move = max(10, 50 - abs(st.session_state.secret_number_p2 - guess_num))
-                    st.session_state.car2_x = min(st.session_state.car2_x + move, 100)
+                    st.session_state.car2_x = min(st.session_state.car2_x + move, 99)  # Prevent reaching 100% early
             
             # Switch player
             st.session_state.current_player = 2 if st.session_state.current_player == 1 else 1
@@ -54,13 +54,15 @@ if st.button("Submit Guess"):
     process_guess()
 
 # Display race progress
-st.progress(st.session_state.car1_x)
-st.write(f"🚗 Player 1's Car Position: {st.session_state.car1_x}%")
-st.write(f"Hint: {st.session_state.hint_p1}")
+if st.session_state.car1_x > 0:
+    st.progress(st.session_state.car1_x)
+    st.write(f"🚗 Player 1's Car Position: {st.session_state.car1_x}%")
+    st.write(f"Hint: {st.session_state.hint_p1}")
 
-st.progress(st.session_state.car2_x)
-st.write(f"🚙 Player 2's Car Position: {st.session_state.car2_x}%")
-st.write(f"Hint: {st.session_state.hint_p2}")
+if st.session_state.car2_x > 0:
+    st.progress(st.session_state.car2_x)
+    st.write(f"🚙 Player 2's Car Position: {st.session_state.car2_x}%")
+    st.write(f"Hint: {st.session_state.hint_p2}")
 
 # Show winner
 if st.session_state.winner:
