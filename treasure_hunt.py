@@ -7,6 +7,7 @@ TOTAL_CHESTS = 10
 GOLDEN_CHESTS = 3  # Number of chests with gold
 
 def reset_game():
+    st.session_state.selected_chests = []
     st.session_state.golden_chests = random.sample(range(1, TOTAL_CHESTS + 1), GOLDEN_CHESTS)
     st.session_state.selected_chests = []
 
@@ -27,7 +28,7 @@ st.title("Treasure Hunt Probability Challenge 🏴‍☠️")
 st.write("Select 3 chests out of 10 and try to find gold!")
 
 # Player Selection
-selected_chests = st.multiselect("Choose 3 chests:", list(range(1, TOTAL_CHESTS + 1)), default=st.session_state.selected_chests, max_selections=3)
+selected_chests = st.multiselect("Choose 3 chests:", list(range(1, TOTAL_CHESTS + 1)), default=[], max_selections=3)
 
 if len(selected_chests) == 3:
     gold_found, score = calculate_probability(selected_chests)
