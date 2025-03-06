@@ -13,6 +13,14 @@ def reset_game():
     st.session_state.rounds_played = 0
     st.session_state.total_score = 0
     st.session_state.history = []
+    st.session_state.leaderboard = {}
+    st.session_state.player_name = ""
+    st.session_state.selected_chests = []
+    st.session_state.golden_chests = random.sample(range(1, TOTAL_CHESTS + 1), GOLDEN_CHESTS)
+    st.session_state.selected_chests = []
+    st.session_state.rounds_played = 0
+    st.session_state.total_score = 0
+    st.session_state.history = []
     st.session_state.selected_chests = []
     st.session_state.golden_chests = random.sample(range(1, TOTAL_CHESTS + 1), GOLDEN_CHESTS)
     st.session_state.selected_chests = []
