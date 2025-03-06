@@ -10,9 +10,18 @@ def reset_game():
     st.session_state.selected_chests = []
     st.session_state.golden_chests = random.sample(range(1, TOTAL_CHESTS + 1), GOLDEN_CHESTS)
     st.session_state.selected_chests = []
+    st.session_state.rounds_played = 0
+    st.session_state.total_score = 0
+    st.session_state.history = []
+    st.session_state.selected_chests = []
+    st.session_state.golden_chests = random.sample(range(1, TOTAL_CHESTS + 1), GOLDEN_CHESTS)
+    st.session_state.selected_chests = []
 
 # Initialize session state
 if "golden_chests" not in st.session_state:
+    st.session_state.rounds_played = 0
+    st.session_state.total_score = 0
+    st.session_state.history = []
     reset_game()
 
 def calculate_probability(selected_chests):
@@ -31,9 +40,12 @@ st.write("Select 3 chests out of 10 and try to find gold!")
 selected_chests = st.multiselect("Choose 3 chests:", list(range(1, TOTAL_CHESTS + 1)), default=[], max_selections=3)
 
 if len(selected_chests) == 3:
+    st.session_state.rounds_played += 1
     gold_found, score = calculate_probability(selected_chests)
     st.write(f"You found {gold_found} gold coins!")
     st.write(f"Your score: {score} points")
+    st.session_state.total_score += score
+    st.session_state.history.append(score)
 
     # Show the actual gold locations
     st.write("💰 Gold was hidden in chests:", st.session_state.golden_chests)
@@ -48,7 +60,12 @@ if len(selected_chests) == 3:
     ev = sum(probabilities[i] * {0: 0, 1: 10, 2: 25, 3: 50}[i] for i in range(4))
     st.write(f"📊 Expected Value (EV) of the game: {ev:.2f} points")
 
-    if st.button("Restart Game"):
+    st.write("### Game Statistics 📊")
+st.write(f"Total Rounds Played: {st.session_state.rounds_played}")
+st.write(f"Average Score: {st.session_state.total_score / max(1, st.session_state.rounds_played):.2f}")
+st.bar_chart({"Rounds": list(range(1, st.session_state.rounds_played + 1)), "Scores": st.session_state.history})
+
+if st.button("Restart Game"):
         reset_game()
         st.rerun()
 else:
