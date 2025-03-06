@@ -49,6 +49,6 @@ if len(selected_chests) == 3:
 
     if st.button("Restart Game"):
         reset_game()
-        st.experimental_rerun()
+        st.rerun()
 else:
     st.warning("Please select exactly 3 chests to play.")
