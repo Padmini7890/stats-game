@@ -2,16 +2,23 @@ import streamlit as st
 import random
 from itertools import combinations
 
-# Game Setup
-TOTAL_CHESTS = 10
-GOLDEN_CHESTS = 3  # Number of chests with gold
-BLUFF_CHESTS = 2  # Number of fake gold chests
+# Level Configuration
+LEVELS = {
+    "Easy": 10,
+    "Medium": 15,
+    "Hard": 20
+}
+GOLDEN_CHESTS = 3  # Fixed for all levels
+BLUFF_CHESTS_RATIO = 0.2  # 20% of total chests as bluff chests
 
 def reset_game():
     st.session_state.selected_chests = []
-    st.session_state.golden_chests = random.sample(range(1, TOTAL_CHESTS + 1), GOLDEN_CHESTS)
-    remaining_chests = [chest for chest in range(1, TOTAL_CHESTS + 1) if chest not in st.session_state.golden_chests]
-    st.session_state.bluff_chests = random.sample(remaining_chests, BLUFF_CHESTS)
+    st.session_state.level = "Easy"
+    total_chests = LEVELS[st.session_state.level]
+    st.session_state.golden_chests = random.sample(range(1, total_chests + 1), GOLDEN_CHESTS)
+    remaining_chests = [chest for chest in range(1, total_chests + 1) if chest not in st.session_state.golden_chests]
+    bluff_count = max(1, int(total_chests * BLUFF_CHESTS_RATIO))
+    st.session_state.bluff_chests = random.sample(remaining_chests, bluff_count)
     st.session_state.rounds_played = 0
     st.session_state.total_score = 0
     st.session_state.history = []
@@ -32,26 +39,9 @@ def get_dynamic_hint(golden_chests, bluff_chests):
     ]
     return random.choice(hints)
 
-def get_past_distribution():
-    """Analyze past gold distributions to help players make better choices."""
-    all_gold = [chest for round_data in st.session_state.gold_history for chest in round_data]
-    if not all_gold:
-        return "No past data yet. Make your best guess!"
-    chest_counts = {chest: all_gold.count(chest) for chest in range(1, TOTAL_CHESTS + 1)}
-    sorted_chests = sorted(chest_counts.items(), key=lambda x: x[1], reverse=True)
-    return f"Past data suggests chests {sorted_chests[0][0]} and {sorted_chests[1][0]} have been lucky before!"
-
 # Initialize session state
 if "golden_chests" not in st.session_state:
     reset_game()
-
-def calculate_probability(selected_chests):
-    """Calculate the probability-based score based on selected chests."""
-    gold_found = sum(1 for chest in selected_chests if chest in st.session_state.golden_chests)
-    bluff_found = sum(1 for chest in selected_chests if chest in st.session_state.bluff_chests)
-    points = {0: 0, 1: 10, 2: 25, 3: 50}  # Scoring system
-    score = points[gold_found] - (bluff_found * 5)  # Bluff chests reduce score
-    return gold_found, bluff_found, max(0, score)
 
 # Streamlit UI
 st.title("Treasure Hunt Probability Challenge 🏴‍☠️")
@@ -60,48 +50,41 @@ st.title("Treasure Hunt Probability Challenge 🏴‍☠️")
 player_name = st.text_input("Enter your name:")
 if "leaderboard" not in st.session_state:
     st.session_state.leaderboard = {}
-st.write("Select 3 chests out of 10 and try to find gold!")
+
+# Level Selection
+difficulty = st.selectbox("Select Difficulty Level:", list(LEVELS.keys()), index=list(LEVELS.keys()).index(st.session_state.level))
+if difficulty != st.session_state.level:
+    st.session_state.level = difficulty
+    reset_game()
+
+total_chests = LEVELS[st.session_state.level]
+st.write(f"Select 3 chests out of {total_chests} and try to find gold!")
 
 # Dynamic Hint System
 st.write(f"💡 Hint: {get_dynamic_hint(st.session_state.golden_chests, st.session_state.bluff_chests)}")
 
-# Statistical Learning Mode
-st.write(f"📊 Insight: {get_past_distribution()}")
-
 # Player Selection
-selected_chests = st.multiselect("Choose 3 chests:", list(range(1, TOTAL_CHESTS + 1)), default=[], max_selections=3)
+selected_chests = st.multiselect("Choose 3 chests:", list(range(1, total_chests + 1)), default=[], max_selections=3)
 
 if len(selected_chests) == 3 and player_name:
     if player_name not in st.session_state.leaderboard:
         st.session_state.leaderboard[player_name] = 0
     st.session_state.rounds_played += 1
-    gold_found, bluff_found, score = calculate_probability(selected_chests)
-    st.write(f"You found {gold_found} gold coins and {bluff_found} fake gold chests!")
-    st.write(f"Your score: {score} points")
-    st.session_state.leaderboard[player_name] += score
-    st.session_state.total_score += score
+    gold_found = sum(1 for chest in selected_chests if chest in st.session_state.golden_chests)
+    bluff_found = sum(1 for chest in selected_chests if chest in st.session_state.bluff_chests)
+    points = {0: 0, 1: 10, 2: 25, 3: 50}
+    score = points[gold_found] - (bluff_found * 5)
+    st.session_state.leaderboard[player_name] += max(0, score)
+    st.session_state.total_score += max(0, score)
     st.session_state.history.append(score)
     st.session_state.gold_history.append(st.session_state.golden_chests)
 
-    # Show the actual gold locations
+    st.write(f"You found {gold_found} gold coins and {bluff_found} fake gold chests!")
+    st.write(f"Your score: {score} points")
     st.write("💰 Gold was hidden in chests:", st.session_state.golden_chests)
     st.write("⚠️ Bluff chests (fake gold) were in:", st.session_state.bluff_chests)
 
-    # Expected Value Calculation
-    probabilities = {
-        0: 36 / 120,
-        1: 54 / 120,
-        2: 27 / 120,
-        3: 3 / 120
-    }
-    ev = sum(probabilities[i] * {0: 0, 1: 10, 2: 25, 3: 50}[i] for i in range(4))
-    st.write(f"📊 Expected Value (EV) of the game: {ev:.2f} points")
-
-    st.write("### Game Statistics 📊")
-st.write(f"Total Rounds Played: {st.session_state.rounds_played}")
-st.write(f"Average Score: {st.session_state.total_score / max(1, st.session_state.rounds_played):.2f}")
-st.bar_chart({"Rounds": list(range(1, st.session_state.rounds_played + 1)), "Scores": st.session_state.history})
-
+# Leaderboard
 st.write("### Leaderboard 🏆")
 leaderboard_sorted = sorted(st.session_state.leaderboard.items(), key=lambda x: x[1], reverse=True)
 for rank, (name, score) in enumerate(leaderboard_sorted[:5], 1):
