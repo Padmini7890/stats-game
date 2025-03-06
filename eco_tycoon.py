@@ -14,6 +14,8 @@ if 'turns' not in st.session_state:
     st.session_state.turns = 0
 if 'game_over' not in st.session_state:
     st.session_state.game_over = False
+if 'events' not in st.session_state:
+    st.session_state.events = ""
 
 st.title("🌱 Eco Tycoon: The Data-Driven City")
 st.write("Manage your city sustainably and survive as long as possible!")
@@ -25,6 +27,21 @@ def reset_game():
     st.session_state.happiness = 50
     st.session_state.turns = 0
     st.session_state.game_over = False
+    st.session_state.events = ""
+
+# Random event generator
+def random_event():
+    events = [
+        ("🌍 Climate Crisis! Pollution levels rise drastically.", {"environment": -15}),
+        ("💰 Economic Boom! Your city's economy flourishes.", {"economy": +15}),
+        ("🌿 Green Revolution! Citizens embrace sustainability.", {"environment": +10, "happiness": +5}),
+        ("🔥 Factory Fire! Industrial production is affected.", {"economy": -10, "happiness": -5}),
+        ("💡 Energy Breakthrough! Renewable energy efficiency increases.", {"economy": +5, "environment": +10})
+    ]
+    event, effects = random.choice(events)
+    st.session_state.events = event
+    for key, value in effects.items():
+        st.session_state[key] += value
 
 # Decision buttons
 def make_decision(decision):
@@ -44,6 +61,10 @@ def make_decision(decision):
         for key in impact[decision]:
             st.session_state[key] += impact[decision][key]
         st.session_state.turns += 1
+        
+        # Random event after every turn
+        if random.random() < 0.4:  # 40% chance of an event occurring
+            random_event()
     
     # Check win/loss conditions
     if st.session_state.environment <= 0:
@@ -63,6 +84,10 @@ if not st.session_state.game_over:
     for choice in choices:
         if st.button(choice):
             make_decision(choice)
+
+# Display random event
+if st.session_state.events:
+    st.warning(st.session_state.events)
 
 # Display stats
 st.write("### City Stats:")
