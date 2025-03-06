@@ -49,6 +49,16 @@ if "leaderboard" not in st.session_state:
     st.session_state.leaderboard = {}
 st.write("Select 3 chests out of 10 and try to find gold!")
 
+# Hint System
+hints = [
+    "Legends say treasure is often found near the heart of the map...",
+    "The richest finds are never at the extremes, but somewhere in between...",
+    "A wise pirate once said: Count the stars, then subtract the waves...",
+    "Your fortune lies closer than you think, but not too close to the edges...",
+    "Gold is known to cluster like birds—rarely alone, but never all together."
+]
+st.write(f"💡 Hint: {random.choice(hints)}")
+
 # Player Selection
 selected_chests = st.multiselect("Choose 3 chests:", list(range(1, TOTAL_CHESTS + 1)), default=[], max_selections=3)
 
