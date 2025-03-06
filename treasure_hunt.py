@@ -15,6 +15,7 @@ def reset_game():
     st.session_state.rounds_played = 0
     st.session_state.total_score = 0
     st.session_state.history = []
+    st.session_state.gold_history = []
     st.session_state.leaderboard = {}
     st.session_state.player_name = ""
 
@@ -30,6 +31,15 @@ def get_dynamic_hint(golden_chests, bluff_chests):
         f"Beware! Some chests hold fool's gold—avoid {random.choice(bluff_chests)}..."
     ]
     return random.choice(hints)
+
+def get_past_distribution():
+    """Analyze past gold distributions to help players make better choices."""
+    all_gold = [chest for round_data in st.session_state.gold_history for chest in round_data]
+    if not all_gold:
+        return "No past data yet. Make your best guess!"
+    chest_counts = {chest: all_gold.count(chest) for chest in range(1, TOTAL_CHESTS + 1)}
+    sorted_chests = sorted(chest_counts.items(), key=lambda x: x[1], reverse=True)
+    return f"Past data suggests chests {sorted_chests[0][0]} and {sorted_chests[1][0]} have been lucky before!"
 
 # Initialize session state
 if "golden_chests" not in st.session_state:
@@ -55,6 +65,9 @@ st.write("Select 3 chests out of 10 and try to find gold!")
 # Dynamic Hint System
 st.write(f"💡 Hint: {get_dynamic_hint(st.session_state.golden_chests, st.session_state.bluff_chests)}")
 
+# Statistical Learning Mode
+st.write(f"📊 Insight: {get_past_distribution()}")
+
 # Player Selection
 selected_chests = st.multiselect("Choose 3 chests:", list(range(1, TOTAL_CHESTS + 1)), default=[], max_selections=3)
 
@@ -68,6 +81,7 @@ if len(selected_chests) == 3 and player_name:
     st.session_state.leaderboard[player_name] += score
     st.session_state.total_score += score
     st.session_state.history.append(score)
+    st.session_state.gold_history.append(st.session_state.golden_chests)
 
     # Show the actual gold locations
     st.write("💰 Gold was hidden in chests:", st.session_state.golden_chests)
