@@ -71,7 +71,7 @@ def show_graph(tasks, dependencies):
             G.add_edge(dep, task)
     
     plt.figure(figsize=(6, 4))
-    pos = nx.spring_layout(G)
+    pos = nx.kamada_kawai_layout(G)
     labels = {node: G.nodes[node]['label'] for node in G.nodes()}
     nx.draw(G, pos, with_labels=True, labels=labels, node_size=2000, node_color='lightblue', edge_color='gray')
     st.pyplot(plt)
