@@ -88,7 +88,8 @@ for index, goal in enumerate(sdg_goals):
                 st.session_state["quiz_started"] = True
                 st.session_state["selected_sdg"] = goal["title"]
                 st.session_state["sdg_1_quiz"] = sdg_1_quiz
-                st.experimental_rerun()
+                # No need for rerun, directly display the quiz
+                st.experimental_set_query_params(quiz=True)
 
 # Show Quiz Placeholder (You can replace this with actual quiz logic)
 if "quiz_started" in st.session_state and st.session_state["quiz_started"]:
