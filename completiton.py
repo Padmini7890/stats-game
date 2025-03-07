@@ -48,7 +48,6 @@ def calculate_critical_path(tasks, dependencies):
     longest_path = nx.dag_longest_path(G)
     total_time = sum(tasks[task][1] for task in longest_path)
     
-    # Compute Earliest Start and Latest Finish Times
     earliest_start = {node: 0 for node in G.nodes()}
     for node in nx.topological_sort(G):
         for successor in G.successors(node):
@@ -71,14 +70,18 @@ def show_graph(tasks, dependencies):
             G.add_edge(dep, task)
     
     plt.figure(figsize=(6, 4))
-    pos = nx.kamada_kawai_layout(G)
+    pos = nx.spring_layout(G)
     labels = {node: G.nodes[node]['label'] for node in G.nodes()}
     nx.draw(G, pos, with_labels=True, labels=labels, node_size=2000, node_color='lightblue', edge_color='gray')
     st.pyplot(plt)
 
 st.title("Project Time Estimation Challenge")
 
-# Select level
+if "name" not in st.session_state:
+    st.session_state.name = ""
+
+st.session_state.name = st.text_input("Enter your name:", value=st.session_state.name)
+
 if "level_selected" not in st.session_state:
     st.session_state.level_selected = False
 
@@ -120,21 +123,21 @@ else:
             st.write(f"**Task {task}:** Duration = {st.session_state.tasks[task][1]} days, Earliest Start = {st.session_state.earliest_start[task]} days, Latest Finish = {st.session_state.latest_finish[task]} days")
         
         if abs(guess - correct_time) == 0:
-            st.success("🎉 Perfect guess! Congratulations! 🎊")
+            st.success(f"🎉 Perfect guess, {st.session_state.name}! Congratulations! 🎊")
             st.image("https://media.giphy.com/media/3o7TKsQYAVjXyG3hXa/giphy.gif")
         elif abs(guess - correct_time) <= 2:
-            st.success("👏 Great guess! You were very close!")
+            st.success(f"👏 Great guess, {st.session_state.name}! You were very close!")
         else:
-            st.warning("Not quite! Try again next time.")
+            st.warning(f"Not quite, {st.session_state.name}! Try again next time.")
         
         if "leaderboard" not in st.session_state:
             st.session_state.leaderboard = []
-        st.session_state.leaderboard.append((guess, correct_time))
+        st.session_state.leaderboard.append((st.session_state.name, guess, correct_time))
         
     if "leaderboard" in st.session_state:
         st.write("### Leaderboard")
-        for idx, (g, c) in enumerate(sorted(st.session_state.leaderboard, key=lambda x: abs(x[0] - x[1]))):
-            st.write(f"{idx+1}. Guessed: {g} days | Correct: {c} days")
+        for idx, (name, g, c) in enumerate(sorted(st.session_state.leaderboard, key=lambda x: abs(x[1] - x[2]))):
+            st.write(f"{idx+1}. {name} - Guessed: {g} days | Correct: {c} days")
 
     if st.button("Reset Game"):
         st.session_state.level_selected = False
