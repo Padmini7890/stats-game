@@ -162,7 +162,7 @@ for index, goal in enumerate(sdg_goals):
                         # Select a new question for the next round
                         st.session_state[f"quiz_question_{goal['id']}"] = random.choice(goal["questions"])
                     else:
-                        st.error(f"Incorrect. The correct answer is: {question['answer']} ❌")
+                        st.error(f"Incorrect. The correct answer is: {question['correct']} ❌")
             
             st.markdown("---")  # Add a horizontal line for separation
 
