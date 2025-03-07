@@ -9,11 +9,11 @@ def generate_riddle_tasks(level):
     random.shuffle(task_names)
     
     if level == 1:
-        num_tasks = random.randint(3, 4)  # Level 1: 3 to 4 tasks
+        num_tasks = random.randint(4, 5)  # Level 1: 4 to 5 tasks to make it harder
     elif level == 2:
-        num_tasks = random.randint(5, 6)  # Level 2: 5 to 6 tasks
+        num_tasks = random.randint(6, 7)  # Level 2: 6 to 7 tasks
     else:
-        num_tasks = random.randint(7, 8)  # Level 3: 7 to 8 tasks
+        num_tasks = random.randint(8, 9)  # Level 3: 8 to 9 tasks
     
     tasks = {}
     dependencies = {}
@@ -21,13 +21,15 @@ def generate_riddle_tasks(level):
     for i in range(num_tasks):
         task = task_names[i]
         description = f"Task {task} must be completed under certain conditions."
-        duration = random.randint(2 + level, 5 + level * 2)  # Increasing difficulty
+        duration = random.randint(3 + level, 6 + level * 2)  # Increasing difficulty
         tasks[task] = (description, duration)
         
         if i == 0:
             dependencies[task] = []  # First task has no dependencies
         else:
-            dependencies[task] = [task_names[random.randint(0, i - 1)]]  # Random dependency from previous tasks
+            # Making dependencies harder by adding multiple dependencies in a two-way flow
+            num_dependencies = random.randint(1, min(i, 2))  # 1 or 2 dependencies
+            dependencies[task] = random.sample(task_names[:i], num_dependencies)
     
     return tasks, dependencies
 
