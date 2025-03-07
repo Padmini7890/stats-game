@@ -5,33 +5,29 @@ import matplotlib.pyplot as plt
 
 def generate_riddle_tasks(level):
     """Generates a random set of tasks with durations and dependencies in riddle format based on level."""
+    task_names = [chr(i) for i in range(65, 91)]  # Generate task names dynamically (A-Z)
+    random.shuffle(task_names)
+    
     if level == 1:
-        tasks = {
-            "A": ("Start of the journey.", random.randint(2, 4)),
-            "B": ("Begins after A.", random.randint(3, 5)),
-            "C": ("Depends on B.", random.randint(2, 4)),
-        }
-        dependencies = {"A": [], "B": ["A"], "C": ["B"]}
+        num_tasks = 3
     elif level == 2:
-        tasks = {
-            "A": ("Foundation setup.", random.randint(2, 6)),
-            "B": ("After A, create base structure.", random.randint(3, 7)),
-            "C": ("B must finish before refining.", random.randint(2, 5)),
-            "D": ("Parallel support, starts after A.", random.randint(4, 8)),
-            "E": ("C and D must complete before finishing.", random.randint(5, 9)),
-        }
-        dependencies = {"A": [], "B": ["A"], "C": ["B"], "D": ["A"], "E": ["C", "D"]}
+        num_tasks = 5
     else:
-        tasks = {
-            "A": ("Laying the foundation.", random.randint(3, 6)),
-            "B": ("Starting after A, assembling materials.", random.randint(4, 8)),
-            "C": ("B's completion allows design phase.", random.randint(3, 7)),
-            "D": ("Parallel to C, external setup.", random.randint(5, 9)),
-            "E": ("C must finish before quality testing.", random.randint(4, 7)),
-            "F": ("D and E must complete for final assembly.", random.randint(6, 10)),
-            "G": ("After F, final deployment.", random.randint(5, 8)),
-        }
-        dependencies = {"A": [], "B": ["A"], "C": ["B"], "D": ["B"], "E": ["C"], "F": ["D", "E"], "G": ["F"]}
+        num_tasks = 7
+    
+    tasks = {}
+    dependencies = {}
+    
+    for i in range(num_tasks):
+        task = task_names[i]
+        description = f"Task {task} must be completed under certain conditions."
+        duration = random.randint(2 + level, 5 + level * 2)  # Increasing difficulty
+        tasks[task] = (description, duration)
+        
+        if i == 0:
+            dependencies[task] = []  # First task has no dependencies
+        else:
+            dependencies[task] = [task_names[random.randint(0, i - 1)]]  # Random dependency from previous tasks
     
     return tasks, dependencies
 
