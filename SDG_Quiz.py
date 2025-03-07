@@ -59,33 +59,86 @@ sdg_goals = [
         {"question": "Which region has the highest youth unemployment rate?", "options": ["Africa", "Asia", "Europe", "North America"], "correct": "Africa"},
         {"question": "What is the global GDP growth rate?", "options": ["1%", "2%", "3%", "4%"], "correct": "3%"}
     ]},
-    # Repeat for all remaining SDGs (9 to 17)
+    {"id": 9, "title": "Industry, Innovation and Infrastructure", "description": "Build resilient infrastructure, promote inclusive and sustainable industrialization.", "questions": [
+        {"question": "What percentage of global infrastructure is in developing countries?", "options": ["50%", "60%", "70%", "80%"], "correct": "70%"},
+        {"question": "What is the fastest-growing sector globally?", "options": ["Technology", "Healthcare", "Manufacturing", "Agriculture"], "correct": "Technology"},
+        {"question": "What is the most commonly used material in infrastructure?", "options": ["Steel", "Wood", "Concrete", "Glass"], "correct": "Concrete"},
+        {"question": "How many people live in slums worldwide?", "options": ["500 million", "700 million", "900 million", "1 billion"], "correct": "900 million"},
+        {"question": "Which country has the most advanced infrastructure?", "options": ["Japan", "USA", "Germany", "China"], "correct": "Japan"}
+    ]},
+    {"id": 10, "title": "Reduced Inequalities", "description": "Reduce inequality within and among countries.", "questions": [
+        {"question": "What is the global income inequality index?", "options": ["0.30", "0.40", "0.50", "0.60"], "correct": "0.50"},
+        {"question": "Which region has the highest income inequality?", "options": ["Latin America", "Africa", "Europe", "Asia"], "correct": "Latin America"},
+        {"question": "What is the wealth gap between the top 1% and the rest of the population?", "options": ["10 times", "20 times", "50 times", "100 times"], "correct": "50 times"},
+        {"question": "Which country has the lowest inequality?", "options": ["Norway", "Sweden", "Finland", "Denmark"], "correct": "Norway"},
+        {"question": "What is the unemployment rate among minorities?", "options": ["4%", "8%", "12%", "16%"], "correct": "12%"}
+    ]},
+    {"id": 11, "title": "Sustainable Cities and Communities", "description": "Make cities inclusive, safe, resilient, and sustainable.", "questions": [
+        {"question": "What percentage of the world’s population lives in cities?", "options": ["40%", "50%", "60%", "70%"], "correct": "60%"},
+        {"question": "What is the most sustainable city in the world?", "options": ["Copenhagen", "Amsterdam", "Paris", "New York"], "correct": "Copenhagen"},
+        {"question": "How many people live in informal settlements?", "options": ["800 million", "1 billion", "1.5 billion", "2 billion"], "correct": "1 billion"},
+        {"question": "Which is the fastest-growing city in the world?", "options": ["Beijing", "New Delhi", "Lagos", "Tokyo"], "correct": "Lagos"},
+        {"question": "What percentage of urban areas suffer from air pollution?", "options": ["20%", "40%", "60%", "80%"], "correct": "80%"}
+    ]},
+    {"id": 12, "title": "Responsible Consumption and Production", "description": "Ensure sustainable consumption and production patterns.", "questions": [
+        {"question": "How much of global waste is recycled?", "options": ["10%", "15%", "20%", "25%"], "correct": "20%"},
+        {"question": "What percentage of global carbon emissions come from production?", "options": ["40%", "50%", "60%", "70%"], "correct": "60%"},
+        {"question": "Which industry produces the most waste?", "options": ["Fashion", "Food", "Technology", "Construction"], "correct": "Construction"},
+        {"question": "What percentage of food produced globally is wasted?", "options": ["25%", "30%", "35%", "40%"], "correct": "30%"},
+        {"question": "Which country uses the most plastic per capita?", "options": ["USA", "China", "India", "Japan"], "correct": "USA"}
+    ]},
+    {"id": 13, "title": "Climate Action", "description": "Take urgent action to combat climate change and its impacts.", "questions": [
+        {"question": "What is the main greenhouse gas responsible for global warming?", "options": ["Carbon dioxide", "Methane", "Nitrous oxide", "Water vapor"], "correct": "Carbon dioxide"},
+        {"question": "What percentage of global carbon emissions come from fossil fuels?", "options": ["70%", "80%", "90%", "95%"], "correct": "80%"},
+        {"question": "How many tons of CO2 are released annually worldwide?", "options": ["20 billion", "30 billion", "40 billion", "50 billion"], "correct": "40 billion"},
+        {"question": "Which country produces the most CO2 emissions?", "options": ["USA", "China", "India", "Russia"], "correct": "China"},
+        {"question": "How much has the global temperature increased since 1900?", "options": ["0.5°C", "1°C", "1.5°C", "2°C"], "correct": "1°C"}
+    ]},
+    {"id": 14, "title": "Life Below Water", "description": "Conserve and sustainably use the oceans, seas, and marine resources.", "questions": [
+        {"question": "How much of the ocean is protected?", "options": ["10%", "15%", "20%", "25%"], "correct": "15%"},
+        {"question": "What is the biggest threat to marine biodiversity?", "options": ["Overfishing", "Pollution", "Climate change", "Habitat destruction"], "correct": "Overfishing"},
+        {"question": "What percentage of plastic in the ocean comes from land-based sources?", "options": ["60%", "70%", "80%", "90%"], "correct": "80%"},
+        {"question": "How many species of marine animals are at risk of extinction?", "options": ["200", "300", "400", "500"], "correct": "400"},
+        {"question": "Which ocean has the highest level of plastic pollution?", "options": ["Atlantic", "Indian", "Pacific", "Arctic"], "correct": "Pacific"}
+    ]},
+    {"id": 15, "title": "Life on Land", "description": "Protect, restore, and promote sustainable use of terrestrial ecosystems.", "questions": [
+        {"question": "What percentage of land is protected worldwide?", "options": ["10%", "15%", "20%", "25%"], "correct": "15%"},
+        {"question": "What is the leading cause of deforestation?", "options": ["Agriculture", "Logging", "Urbanization", "Mining"], "correct": "Agriculture"},
+        {"question": "Which country has the most forest area?", "options": ["Russia", "Canada", "Brazil", "USA"], "correct": "Russia"},
+        {"question": "How much of the Earth's land area is desert?", "options": ["15%", "20%", "25%", "30%"], "correct": "25%"},
+        {"question": "What is the most endangered animal on land?", "options": ["Tiger", "Elephant", "Panda", "Rhinoceros"], "correct": "Rhinoceros"}
+    ]},
+    {"id": 16, "title": "Peace, Justice and Strong Institutions", "description": "Promote peaceful and inclusive societies for sustainable development.", "questions": [
+        {"question": "What is the global homicide rate?", "options": ["5 per 100,000", "7 per 100,000", "9 per 100,000", "11 per 100,000"], "correct": "7 per 100,000"},
+        {"question": "What percentage of countries have free elections?", "options": ["50%", "60%", "70%", "80%"], "correct": "70%"},
+        {"question": "What is the most common cause of conflict?", "options": ["Political", "Religious", "Ethnic", "Economic"], "correct": "Ethnic"},
+        {"question": "Which country has the highest incarceration rate?", "options": ["USA", "China", "Russia", "Brazil"], "correct": "USA"},
+        {"question": "How many people are affected by violence globally?", "options": ["1 billion", "2 billion", "3 billion", "4 billion"], "correct": "2 billion"}
+    ]},
+    {"id": 17, "title": "Partnerships for the Goals", "description": "Strengthen the means of implementation and revitalize the Global Partnership for Sustainable Development.", "questions": [
+        {"question": "How much is global official development assistance?", "options": ["$100 billion", "$150 billion", "$200 billion", "$250 billion"], "correct": "$200 billion"},
+        {"question": "What percentage of global trade is sustainable?", "options": ["10%", "15%", "20%", "25%"], "correct": "20%"},
+        {"question": "Which region contributes the most to development aid?", "options": ["Europe", "North America", "Asia", "Africa"], "correct": "North America"},
+        {"question": "What is the primary goal of the Paris Agreement?", "options": ["Reduce poverty", "Fight climate change", "Promote education", "Ensure food security"], "correct": "Fight climate change"},
+        {"question": "Which international organization promotes the SDGs?", "options": ["World Bank", "IMF", "UN", "WHO"], "correct": "UN"}
+    ]}
 ]
 
-def show_question(sdg, question_idx):
-    question = sdg['questions'][question_idx]
-    st.subheader(f"Question: {question['question']}")
-    options = question['options']
-    selected_option = st.radio("Choose your answer:", options, key=question_idx)
+# Streamlit UI
+st.set_page_config(layout="wide")
+st.title("🌍 Sustainable Development Goals (SDGs) Dashboard")
+st.write("Explore the 17 Sustainable Development Goals set by the United Nations.")
 
-    if st.button("Submit Answer", key=f"submit_{question_idx}"):
-        if selected_option == question['correct']:
-            st.success("Correct!")
-        else:
-            st.error(f"Wrong! The correct answer is {question['correct']}.")
+# Display SDG goals as a grid dashboard
+cols = st.columns(3)  # Create a 3-column layout
 
-def display_sdg_dashboard():
-    st.title("Sustainable Development Goals (SDGs) Dashboard")
-    st.write("Explore the 17 Sustainable Development Goals (SDGs). Click on a goal to start the quiz.")
-
-    # Create a 3-column grid layout for SDG cards
-    cols = st.columns(3)
-    
-    # Iterate through SDGs and create clickable sections
-    for index, goal in enumerate(sdg_goals):
-        with cols[index % 3]:
+for index, goal in enumerate(sdg_goals):
+    with cols[index % 3]:
+        with st.container():
             st.markdown(f"### {goal['title']}")
-            st.write(f"{goal['description']}")
+            st.write(goal["description"])
+            
+            # Add a "Let's Start Quiz" button for each goal
             if st.button(f"Start Quiz for {goal['title']} 📝", key=f"quiz_{goal['id']}"):
                 st.session_state["selected_sdg"] = goal["title"]
                 st.session_state[f"quiz_started_{goal['id']}"] = True
@@ -95,9 +148,15 @@ def display_sdg_dashboard():
     if sdg_choice:
         selected_sdg = next(goal for goal in sdg_goals if goal["title"] == sdg_choice)
         question_idx = random.randint(0, len(selected_sdg['questions']) - 1)  # Random question from the goal
-        show_question(selected_sdg, question_idx)
+        question = selected_sdg['questions'][question_idx]
+        
+        # Display the question
+        st.write(question['question'])
+        answer = st.radio("Choose an answer:", question['options'], key=f"quiz_question_{goal['id']}")
+        
+        if st.button("Submit Answer", key=f"submit_{goal['id']}"):
+            if answer == question['correct']:
+                st.success("Correct! 🎉")
+            else:
+                st.error("Incorrect. Try again! ❌")
 
-def play_quiz():
-    display_sdg_dashboard()
-
-play_quiz()
