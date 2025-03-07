@@ -12,11 +12,17 @@ sdg_goals = [
     ]},
     {"id": 2, "title": "Zero Hunger", "description": "End hunger, achieve food security and improved nutrition.", "questions": [
         {"question": "What is the global hunger index score in 2023?", "options": ["25", "17", "32", "13"], "correct": "17"},
-        {"question": "How much food is wasted annually worldwide?", "options": ["1 billion tons", "2 billion tons", "1.3 billion tons", "3 billion tons"], "correct": "1.3 billion tons"}
+        {"question": "How much food is wasted annually worldwide?", "options": ["1 billion tons", "2 billion tons", "1.3 billion tons", "3 billion tons"], "correct": "1.3 billion tons"},
+        {"question": "How many people suffer from chronic hunger globally?", "options": ["500 million", "750 million", "800 million", "1 billion"], "correct": "800 million"},
+        {"question": "What is the most common micronutrient deficiency in the world?", "options": ["Iron", "Vitamin D", "Iodine", "Vitamin A"], "correct": "Iron"},
+        {"question": "Which region has the highest rate of food insecurity?", "options": ["South Asia", "Sub-Saharan Africa", "Middle East", "Europe"], "correct": "Sub-Saharan Africa"}
     ]},
     {"id": 3, "title": "Good Health and Well-being", "description": "Ensure healthy lives and promote well-being for all ages.", "questions": [
         {"question": "What percentage of people in the world lack access to basic healthcare?", "options": ["10%", "20%", "30%", "40%"], "correct": "20%"},
-        {"question": "What is the leading cause of death globally?", "options": ["Cancer", "Heart Disease", "Respiratory Infections", "Diabetes"], "correct": "Heart Disease"}
+        {"question": "What is the leading cause of death globally?", "options": ["Cancer", "Heart Disease", "Respiratory Infections", "Diabetes"], "correct": "Heart Disease"},
+        {"question": "What is the life expectancy globally?", "options": ["70 years", "72 years", "74 years", "76 years"], "correct": "72 years"},
+        {"question": "What is the global maternal mortality ratio?", "options": ["200 per 100,000 live births", "150 per 100,000 live births", "300 per 100,000 live births", "400 per 100,000 live births"], "correct": "200 per 100,000 live births"},
+        {"question": "How many people globally are living with HIV/AIDS?", "options": ["10 million", "20 million", "36 million", "50 million"], "correct": "36 million"}
     ]},
     {"id": 4, "title": "Quality Education", "description": "Ensure inclusive and equitable quality education for all.", "questions": [
         {"question": "How many children worldwide are out of school?", "options": ["50 million", "100 million", "150 million", "200 million"], "correct": "100 million"},
