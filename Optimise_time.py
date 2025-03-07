@@ -29,9 +29,10 @@ def calculate_critical_path(tasks, durations, dependencies):
     return longest_path_length, G
 
 def draw_graph(G):
-    """Draws the dependency graph."""
-    pos = nx.spring_layout(G)
+    """Draws the dependency graph with better spacing to prevent overlapping nodes."""
+    pos = nx.kamada_kawai_layout(G)  # Improved layout to reduce overlap
     labels = {node: f"{node}\n{G.nodes[node]['duration']}d" for node in G.nodes}
+    plt.figure(figsize=(8, 6))  # Adjust figure size
     nx.draw(G, pos, with_labels=True, labels=labels, node_color='lightblue', edge_color='gray', node_size=2000, font_size=12)
     st.pyplot(plt)
 
