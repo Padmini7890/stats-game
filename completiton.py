@@ -52,18 +52,22 @@ if "tasks" not in st.session_state:
         st.session_state.tasks, st.session_state.dependencies
     )
     st.session_state.game_over = False
-    st.session_state.show_graph = False
+    st.session_state.show_graph = True  # Show the graph initially
 
 st.write("### Task Descriptions (Solve the Riddles!)")
 for task, (desc, duration) in st.session_state.tasks.items():
     st.write(f"**{task}:** {desc}")
+
+# Show network graph at the start
+if st.session_state.show_graph:
+    st.write("### Project Dependency Graph")
+    show_graph(st.session_state.tasks, st.session_state.dependencies)
 
 # User input for estimated time
 guess = st.number_input("Guess the least time needed to complete the project (in days):", min_value=1, step=1)
 if st.button("Submit Guess"):
     correct_time = st.session_state.correct_time
     st.session_state.game_over = True
-    st.session_state.show_graph = True
     
     st.write(f"### Correct Time: {correct_time} days")
     st.write(f"Critical Path: {' → '.join(st.session_state.critical_path)}")
@@ -93,10 +97,5 @@ if st.button("Reset Game"):
         st.session_state.tasks, st.session_state.dependencies
     )
     st.session_state.game_over = False
-    st.session_state.show_graph = False
+    st.session_state.show_graph = True  # Show the new graph after restart
     st.rerun()
-
-# Show network graph of dependencies only after restart
-if st.session_state.show_graph:
-    st.write("### Project Dependency Graph")
-    show_graph(st.session_state.tasks, st.session_state.dependencies)
