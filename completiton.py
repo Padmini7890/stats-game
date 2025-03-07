@@ -10,7 +10,7 @@ def generate_riddle_tasks(level):
     
     if level == 1:
         num_tasks = random.randint(4, 5)
-        max_dependencies = 1  # Ensuring at least one interlink or two-way task
+        max_dependencies = 2  # Ensuring at least one interlink or two-way task
     elif level == 2:
         num_tasks = random.randint(4, 6)
         max_dependencies = random.randint(2, 3)  # More interlinks
