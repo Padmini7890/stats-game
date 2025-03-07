@@ -8,49 +8,56 @@ sdg_goals = [
         {"question": "Which country has the highest percentage of people living in poverty?", "options": ["India", "USA", "Nigeria", "China"], "correct": "Nigeria"},
         {"question": "What is the international poverty line according to the World Bank?", "options": ["$1.90/day", "$2.50/day", "$3.00/day", "$5.00/day"], "correct": "$1.90/day"},
         {"question": "How many people live in extreme poverty globally?", "options": ["700 million", "1 billion", "1.3 billion", "2 billion"], "correct": "700 million"},
-        {"question": "Which region has the highest number of people living in extreme poverty?", "options": ["Sub-Saharan Africa", "Asia", "Latin America", "Europe"], "correct": "Sub-Saharan Africa"}
+        {"question": "Which region has the highest number of people living in extreme poverty?", "options": ["Sub-Saharan Africa", "Asia", "Latin America", "Europe"], "correct": "Sub-Saharan Africa"},
+        {"question": "What percentage of the global population lives in extreme poverty?", "options": ["10%", "15%", "9%", "14%"], "correct": "9%"}
     ]},
     {"id": 2, "title": "Zero Hunger", "emoji": "🍽️🌍", "description": "End hunger, achieve food security and improved nutrition.", "questions": [
         {"question": "What is the global hunger index score in 2023?", "options": ["25", "17", "32", "13"], "correct": "17"},
         {"question": "How much food is wasted annually worldwide?", "options": ["1 billion tons", "2 billion tons", "1.3 billion tons", "3 billion tons"], "correct": "1.3 billion tons"},
         {"question": "How many people suffer from chronic hunger globally?", "options": ["500 million", "750 million", "800 million", "1 billion"], "correct": "800 million"},
         {"question": "What is the most common micronutrient deficiency in the world?", "options": ["Iron", "Vitamin D", "Iodine", "Vitamin A"], "correct": "Iron"},
-        {"question": "Which region has the highest rate of food insecurity?", "options": ["South Asia", "Sub-Saharan Africa", "Middle East", "Europe"], "correct": "Sub-Saharan Africa"}
+        {"question": "Which region has the highest rate of food insecurity?", "options": ["South Asia", "Sub-Saharan Africa", "Middle East", "Europe"], "correct": "Sub-Saharan Africa"},
+        {"question": "What is the main cause of hunger in the world?", "options": ["War", "Climate change", "Overpopulation", "Agricultural policies"], "correct": "War"}
     ]},
     {"id": 3, "title": "Good Health and Well-being", "emoji": "🩺💪", "description": "Ensure healthy lives and promote well-being for all ages.", "questions": [
         {"question": "What percentage of people in the world lack access to basic healthcare?", "options": ["10%", "20%", "30%", "40%"], "correct": "20%"},
         {"question": "What is the leading cause of death globally?", "options": ["Cancer", "Heart Disease", "Respiratory Infections", "Diabetes"], "correct": "Heart Disease"},
         {"question": "What is the life expectancy globally?", "options": ["70 years", "72 years", "74 years", "76 years"], "correct": "72 years"},
         {"question": "What is the global maternal mortality ratio?", "options": ["200 per 100,000 live births", "150 per 100,000 live births", "300 per 100,000 live births", "400 per 100,000 live births"], "correct": "200 per 100,000 live births"},
-        {"question": "How many people globally are living with HIV/AIDS?", "options": ["10 million", "20 million", "36 million", "50 million"], "correct": "36 million"}
+        {"question": "How many people globally are living with HIV/AIDS?", "options": ["10 million", "20 million", "36 million", "50 million"], "correct": "36 million"},
+        {"question": "Which disease is preventable with a vaccine and has high death rates?", "options": ["HIV/AIDS", "Tuberculosis", "Malaria", "Measles"], "correct": "Measles"}
     ]},
     {"id": 4, "title": "Quality Education", "emoji": "📚🎓", "description": "Ensure inclusive and equitable quality education for all.", "questions": [
         {"question": "How many children worldwide are out of school?", "options": ["50 million", "100 million", "150 million", "200 million"], "correct": "100 million"},
         {"question": "What is the global literacy rate?", "options": ["80%", "85%", "90%", "95%"], "correct": "90%"},
         {"question": "What percentage of youth are enrolled in secondary education globally?", "options": ["50%", "60%", "70%", "80%"], "correct": "70%"},
         {"question": "How many teachers are needed worldwide to achieve quality education for all?", "options": ["10 million", "25 million", "35 million", "50 million"], "correct": "25 million"},
-        {"question": "Which continent has the lowest enrollment in primary education?", "options": ["Africa", "Asia", "Europe", "North America"], "correct": "Africa"}
+        {"question": "Which continent has the lowest enrollment in primary education?", "options": ["Africa", "Asia", "Europe", "North America"], "correct": "Africa"},
+        {"question": "Which country has the highest literacy rate?", "options": ["Norway", "Japan", "Finland", "Denmark"], "correct": "Finland"}
     ]},
     {"id": 5, "title": "Gender Equality", "emoji": "♀️♂️", "description": "Achieve gender equality and empower all women and girls.", "questions": [
         {"question": "What percentage of women in the world experience physical or sexual violence?", "options": ["10%", "20%", "30%", "40%"], "correct": "30%"},
         {"question": "Which country has the highest gender pay gap?", "options": ["USA", "Iceland", "Saudi Arabia", "China"], "correct": "Saudi Arabia"},
          {"question": "What is the global gender parity in primary education?", "options": ["80%", "90%", "95%", "98%"], "correct": "90%"},
         {"question": "What percentage of women hold positions in national parliaments globally?", "options": ["10%", "25%", "30%", "40%"], "correct": "25%"},
-        {"question": "Which country ranks first for gender equality?", "options": ["Norway", "Sweden", "Finland", "Denmark"], "correct": "Norway"}
+        {"question": "Which country ranks first for gender equality?", "options": ["Norway", "Sweden", "Finland", "Denmark"], "correct": "Norway"},
+        {"question": "What is the global gender pay gap?", "options": ["20%", "23%", "15%", "30%"], "correct": "20%"}
     ]},
     {"id": 6, "title": "Clean Water and Sanitation", "emoji": "💧🚽", "description": "Ensure availability and sustainable management of water and sanitation for all.", "questions": [
         {"question": "How many people lack access to safe drinking water?", "options": ["700 million", "1 billion", "2 billion", "3 billion"], "correct": "2 billion"},
         {"question": "How much water is used per person daily worldwide?", "options": ["100 liters", "200 liters", "150 liters", "50 liters"], "correct": "150 liters"},
         {"question": "What percentage of wastewater is treated globally?", "options": ["10%", "20%", "30%", "40%"], "correct": "20%"},
         {"question": "How many people globally lack access to sanitation facilities?", "options": ["1 billion", "1.5 billion", "2 billion", "2.5 billion"], "correct": "2 billion"},
-        {"question": "What is the leading cause of waterborne diseases?", "options": ["Pollution", "Lack of sanitation", "Poor water quality", "Water scarcity"], "correct": "Poor water quality"}
+        {"question": "What is the leading cause of waterborne diseases?", "options": ["Pollution", "Lack of sanitation", "Poor water quality", "Water scarcity"], "correct": "Poor water quality"},
+        {"question": "Which region is facing the most severe water scarcity?", "options": ["Asia", "Africa", "Europe", "Australia"], "correct": "Africa"}
     ]},
     {"id": 7, "title": "Affordable and Clean Energy", "emoji": "⚡🌱", "description": "Ensure access to affordable, reliable, sustainable, and modern energy for all.", "questions": [
         {"question": "What percentage of the world's population lacks access to electricity?", "options": ["5%", "10%", "20%", "25%"], "correct": "10%"},
         {"question": "What is the primary source of renewable energy?", "options": ["Solar", "Wind", "Hydropower", "Geothermal"], "correct": "Hydropower"},
         {"question": "Which country produces the most wind energy?", "options": ["China", "USA", "Germany", "India"], "correct": "China"},
         {"question": "How much of the world’s electricity is generated from renewable sources?", "options": ["10%", "20%", "30%", "40%"], "correct": "30%"},
-        {"question": "What is the global average energy consumption per person?", "options": ["2000 kWh", "5000 kWh", "7000 kWh", "10000 kWh"], "correct": "5000 kWh"}
+        {"question": "What is the global average energy consumption per person?", "options": ["2000 kWh", "5000 kWh", "7000 kWh", "10000 kWh"], "correct": "5000 kWh"},
+        {"question": "What percentage of global energy is produced from renewable sources?", "options": ["25%", "15%", "35%", "50%"], "correct": "25%"}
     ]},
     {"id": 8, "title": "Decent Work and Economic Growth", "emoji": "💼📈", "description": "Promote sustained, inclusive, and sustainable economic growth.", "questions": [
         {"question": "What percentage of youth are unemployed globally?", "options": ["10%", "15%", "20%", "25%"], "correct": "20%"},
@@ -163,13 +170,7 @@ for index, goal in enumerate(sdg_goals):
                         st.session_state[f"quiz_question_{goal['id']}"] = random.choice(goal["questions"])
                     else:
                         st.error(f"Incorrect. The correct answer is: {question['correct']} ❌")
-                # Reset button
-                if st.button("Reset Quiz", key=f"reset_{goal['id']}"):
-                    st.session_state[f"quiz_started_{goal['id']}"] = False  # Reset quiz state
-                    st.session_state[f"quiz_question_{goal['id']}"] = None  # Clear the current question
-                    st.session_state[f"quiz_answer_{goal['id']}"] = None  # Clear the answer selection
-                    st.experimental_rerun()  # Rerun to restart the quiz flow
-
+            
             st.markdown("---")  # Add a horizontal line for separation
 
 # JSON API-like data preview
