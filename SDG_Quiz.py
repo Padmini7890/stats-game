@@ -23,18 +23,22 @@ sdg_goals = [
 ]
 
 # Streamlit UI
-st.title("🌍 Sustainable Development Goals (SDGs)")
+st.set_page_config(layout="wide")
+st.title("🌍 Sustainable Development Goals (SDGs) Dashboard")
 st.write("Explore the 17 Sustainable Development Goals set by the United Nations.")
 
-# Display SDG goals as rectangles
-for goal in sdg_goals:
-    with st.container():
-        st.markdown(f"### {goal['title']}")
-        st.write(goal["description"])
-        if st.button(f"Let's Start the Quiz! 📝", key=goal["id"]):
-            st.session_state["quiz_started"] = True
-            st.session_state["selected_sdg"] = goal["title"]
-            st.experimental_rerun()
+# Display SDG goals as a grid dashboard
+cols = st.columns(3)  # Create a 3-column layout
+
+for index, goal in enumerate(sdg_goals):
+    with cols[index % 3]:
+        with st.container():
+            st.markdown(f"### {goal['title']}")
+            st.write(goal["description"])
+            if st.button(f"Let's Start the Quiz! 📝", key=goal["id"]):
+                st.session_state["quiz_started"] = True
+                st.session_state["selected_sdg"] = goal["title"]
+                st.experimental_rerun()
 
 # Show Quiz Placeholder (You can replace this with actual quiz logic)
 if "quiz_started" in st.session_state and st.session_state["quiz_started"]:
