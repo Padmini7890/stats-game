@@ -51,8 +51,11 @@ def main():
         
         st.subheader("Project Riddles:")
         for task in tasks:
-            dep_str = ", ".join(dependencies.get(task, ["Start"]))
-            riddle = f"A task takes {durations[task]} days to complete. It can only begin after {dep_str}. What task is it?"
+            if task not in dependencies:
+                riddle = f"{task}: Starting point."
+            else:
+                dep_str = ", ".join(dependencies[task])
+                riddle = f"{task}: Can start after {dep_str}."
             st.write(riddle)
         
         user_guess = st.number_input("Guess the minimum project completion time (in days):", min_value=1, step=1)
