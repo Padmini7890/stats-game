@@ -35,6 +35,27 @@ for index, goal in enumerate(sdg_goals):
         with st.container():
             st.markdown(f"### {goal['title']}")
             st.write(goal["description"])
+            
+            # Add a "Let's Start Quiz" button for each goal
+            if st.button(f"Let's Start Quiz! 📝", key=f"quiz_{goal['id']}"):
+                st.session_state["selected_sdg"] = goal["title"]
+                st.session_state[f"quiz_started_{goal['id']}"] = True
+            
+            # Display quiz placeholder if the button is clicked
+            if st.session_state.get(f"quiz_started_{goal['id']}", False):
+                st.subheader(f"Quiz for {goal['title']}")
+                st.write("(Quiz questions related to this SDG will be shown here.)")
+                
+                # Example Question Placeholder
+                st.write("Q1: What percentage of the world's population lives in poverty?")
+                answer = st.radio("Choose an answer:", ["10%", "20%", "30%", "40%"], key=f"quiz_question_{goal['id']}")
+                
+                if st.button("Submit Answer", key=f"submit_{goal['id']}"):
+                    if answer == "10%":
+                        st.success("Correct! 🎉")
+                    else:
+                        st.error("Incorrect. Try again! ❌")
+            
             st.markdown("---")  # Add a horizontal line for separation
 
 # JSON API-like data preview
