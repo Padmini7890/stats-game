@@ -24,7 +24,7 @@ def calculate_critical_path(tasks, dependencies):
         for dep in deps:
             G.add_edge(dep, task)
     
-    longest_path = nx.dag_longest_path(G, weight='duration')
+    longest_path = nx.dag_longest_path(G)
     total_time = sum(tasks[task][1] for task in longest_path)
     return total_time, longest_path
 
