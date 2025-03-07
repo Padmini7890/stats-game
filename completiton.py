@@ -52,6 +52,7 @@ if "tasks" not in st.session_state:
         st.session_state.tasks, st.session_state.dependencies
     )
     st.session_state.game_over = False
+    st.session_state.show_graph = False
 
 st.write("### Task Descriptions (Solve the Riddles!)")
 for task, (desc, duration) in st.session_state.tasks.items():
@@ -62,6 +63,7 @@ guess = st.number_input("Guess the least time needed to complete the project (in
 if st.button("Submit Guess"):
     correct_time = st.session_state.correct_time
     st.session_state.game_over = True
+    st.session_state.show_graph = True
     
     st.write(f"### Correct Time: {correct_time} days")
     st.write(f"Critical Path: {' → '.join(st.session_state.critical_path)}")
@@ -79,17 +81,22 @@ if st.button("Submit Guess"):
         st.session_state.leaderboard = []
     st.session_state.leaderboard.append((guess, correct_time))
     
-    # Reset game after a session
-    st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks()
-    st.session_state.correct_time, st.session_state.critical_path = calculate_critical_path(
-        st.session_state.tasks, st.session_state.dependencies
-    )
-    
 if "leaderboard" in st.session_state:
     st.write("### Leaderboard")
     for idx, (g, c) in enumerate(sorted(st.session_state.leaderboard, key=lambda x: abs(x[0] - x[1]))):
         st.write(f"{idx+1}. Guessed: {g} days | Correct: {c} days")
 
-# Show network graph of dependencies
-st.write("### Project Dependency Graph")
-show_graph(st.session_state.tasks, st.session_state.dependencies)
+# Reset Button
+if st.button("Reset Game"):
+    st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks()
+    st.session_state.correct_time, st.session_state.critical_path = calculate_critical_path(
+        st.session_state.tasks, st.session_state.dependencies
+    )
+    st.session_state.game_over = False
+    st.session_state.show_graph = False
+    st.experimental_rerun()
+
+# Show network graph of dependencies only after restart
+if st.session_state.show_graph:
+    st.write("### Project Dependency Graph")
+    show_graph(st.session_state.tasks, st.session_state.dependencies)
