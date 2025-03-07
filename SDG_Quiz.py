@@ -91,24 +91,30 @@ for index, goal in enumerate(sdg_goals):
             if st.button(f"Let's Start Quiz! 📝", key=f"quiz_{goal['id']}"):
                 st.session_state["selected_sdg"] = goal["title"]
                 st.session_state[f"quiz_started_{goal['id']}"] = True
-            
+                # Select the first question when the quiz starts
+                st.session_state[f"quiz_question_{goal['id']}"] = random.choice(goal["questions"])
+
             # Display quiz questions if the quiz has started
             if st.session_state.get(f"quiz_started_{goal['id']}", False):
                 st.subheader(f"Quiz for {goal['title']}")
-                question = random.choice(goal["questions"])
+                
+                # Retrieve the selected question from session state
+                question = st.session_state.get(f"quiz_question_{goal['id']}")
                 st.write(question["question"])
                 
                 # Display the multiple-choice options
-                answer = st.radio("Choose an answer:", question["options"], key=f"quiz_question_{goal['id']}")
+                answer = st.radio("Choose an answer:", question["options"], key=f"quiz_answer_{goal['id']}")
                 
                 if st.button("Submit Answer", key=f"submit_{goal['id']}"):
                     if answer == question["correct"]:
                         st.success("Correct! 🎉")
+                        # Select a new question for the next round
+                        st.session_state[f"quiz_question_{goal['id']}"] = random.choice(goal["questions"])
                     else:
                         st.error("Incorrect. Try again! ❌")
             
             st.markdown("---")  # Add a horizontal line for separation
 
 # JSON API-like data preview
-if st.checkbox("Show SDG Data (JSON format)"):
+if st.checkbox("Show SDG Data (JSON format)") :
     st.json(sdg_goals)
