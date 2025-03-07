@@ -8,16 +8,16 @@ def generate_riddle_tasks(level):
     task_names = [chr(i) for i in range(65, 91)]  # Generate task names dynamically (A-Z)
     random.shuffle(task_names)
     
-    if level == 1:
+    if level == 1:  # Easy 
         num_tasks = random.randint(4, 5)
-        max_dependencies = 2  # Ensuring at least one interlink or two-way task
-    elif level == 2:
+        max_dependencies = 1  # Ensuring at least one interlink or two-way task
+    elif level == 2:  # Moderate
         num_tasks = random.randint(4, 6)
         max_dependencies = random.randint(2, 3)  # More interlinks
-    elif level == 3:
+    elif level == 3:  # Hard
         num_tasks = random.randint(6, 8)
         max_dependencies = random.randint(1, 2)  # Some interlinks
-    else:  # Extremely Hard Level
+    else:  # Extremely Hard
         num_tasks = random.randint(6, 8)
         max_dependencies = random.randint(3, num_tasks - 1)  # Higher interlinks
     
@@ -83,9 +83,9 @@ if "level_selected" not in st.session_state:
     st.session_state.level_selected = False
 
 if not st.session_state.level_selected:
-    level = st.radio("Select Level:", [1, 2, 3, 4])
+    level = st.radio("Select Level:", ["🔵 Easy", "🟠 Moderate", "🔴 Hard", "⚫ Extremely Hard"])
     if st.button("Confirm Level"):
-        st.session_state.level = level
+        st.session_state.level = ["🔵 Easy", "🟠 Moderate", "🔴 Hard", "⚫ Extremely Hard"].index(level) + 1
         st.session_state.level_selected = True
         st.rerun()
 else:
@@ -138,10 +138,4 @@ else:
 
     if st.button("Reset Game"):
         st.session_state.level_selected = False
-        st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks(st.session_state.level)
-        st.session_state.correct_time, st.session_state.critical_path, st.session_state.earliest_start, st.session_state.latest_finish = calculate_critical_path(
-            st.session_state.tasks, st.session_state.dependencies
-        )
-        st.session_state.game_over = False
-        st.session_state.show_graph = True
         st.rerun()
