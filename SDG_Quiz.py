@@ -36,7 +36,7 @@ sdg_goals = [
         {"question": "Which region has the lowest female labor force participation?", "options": ["Asia", "Africa", "Europe", "Latin America"], "correct": "Asia"},
         {"question": "How many women globally experience gender-based violence?", "options": ["100 million", "200 million", "300 million", "400 million"], "correct": "300 million"},
         {"question": "Which country has the highest number of women in parliament?", "options": ["Rwanda", "Sweden", "Norway", "Finland"], "correct": "Rwanda"},
-        {"question": "What percentage of women have access to reproductive health services?", "options": ["50%", "60%", "70%", "80%"], "correct": "60%"
+        {"question": "What percentage of women have access to reproductive health services?", "options": ["50%", "60%", "70%", "80%"], "correct": "60%"}
     ]},
      {"id": 6, "title": "Clean Water and Sanitation", "description": "Ensure availability and sustainable management of water and sanitation for all.", "questions": [
         {"question": "How many people lack access to clean drinking water?", "options": ["700 million", "1 billion", "1.5 billion", "2 billion"], "correct": "1 billion"},
