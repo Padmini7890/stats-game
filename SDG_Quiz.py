@@ -30,10 +30,27 @@ st.write("Explore the 17 Sustainable Development Goals set by the United Nations
 selected_goal = st.selectbox("Select an SDG Goal:", [goal["title"] for goal in sdg_goals])
 
 # Display the selected goal
-for goal in sdg_goals:
-    if goal["title"] == selected_goal:
-        st.subheader(f"**{goal['title']}**")
-        st.write(goal["description"])
+goal_data = next(goal for goal in sdg_goals if goal["title"] == selected_goal)
+st.subheader(f"**{goal_data['title']}**")
+st.write(goal_data["description"])
+
+# Start the Quiz Button
+if st.button("Let's Start the Quiz! 📝"):
+    st.session_state["quiz_started"] = True
+    st.session_state["selected_sdg"] = selected_goal
+    st.experimental_rerun()
+
+# Show Quiz Placeholder (You can replace this with actual quiz logic)
+if "quiz_started" in st.session_state and st.session_state["quiz_started"]:
+    st.subheader(f"Quiz for {st.session_state['selected_sdg']}")
+    st.write("(Quiz questions related to this SDG will be shown here.)")
+    
+    # Example Question Placeholder
+    st.write("Q1: What percentage of the world's population lives in poverty?")
+    st.radio("Choose an answer:", ["10%", "20%", "30%", "40%"])
+    
+    if st.button("Submit Answer"):
+        st.write("(Feedback on the answer will be displayed here.)")
 
 # JSON API-like data preview
 if st.checkbox("Show SDG Data (JSON format)"):
