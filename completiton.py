@@ -9,11 +9,17 @@ def generate_riddle_tasks(level):
     random.shuffle(task_names)
     
     if level == 1:
-        num_tasks = random.randint(4, 5)  # Level 1: 4 to 5 tasks to make it harder
+        num_tasks = random.randint(4, 5)
+        max_dependencies = 1  # Only one interlink or two-direction task
     elif level == 2:
-        num_tasks = random.randint(6, 7)  # Level 2: 6 to 7 tasks
-    else:
-        num_tasks = random.randint(8, 9)  # Level 3: 8 to 9 tasks
+        num_tasks = random.randint(4, 6)
+        max_dependencies = 2  # More than 1-2 interlinks
+    elif level == 3:
+        num_tasks = random.randint(6, 8)
+        max_dependencies = 1  # 1 or no interlink
+    else:  # Extremely Hard Level
+        num_tasks = random.randint(6, 8)
+        max_dependencies = 3  # More interlinks
     
     tasks = {}
     dependencies = {}
@@ -21,14 +27,13 @@ def generate_riddle_tasks(level):
     for i in range(num_tasks):
         task = task_names[i]
         description = f"Task {task} must be completed under certain conditions."
-        duration = random.randint(3 + level, 6 + level * 2)  # Increasing difficulty
+        duration = random.randint(3 + level, 6 + level * 2)
         tasks[task] = (description, duration)
         
         if i == 0:
             dependencies[task] = []  # First task has no dependencies
         else:
-            # Making dependencies harder by adding multiple dependencies in a two-way flow
-            num_dependencies = random.randint(1, min(i, 2))  # 1 or 2 dependencies
+            num_dependencies = random.randint(0, min(i, max_dependencies))  # Control dependencies based on level
             dependencies[task] = random.sample(task_names[:i], num_dependencies)
     
     return tasks, dependencies
@@ -68,7 +73,7 @@ if "level_selected" not in st.session_state:
     st.session_state.level_selected = False
 
 if not st.session_state.level_selected:
-    level = st.radio("Select Level:", [1, 2, 3])
+    level = st.radio("Select Level:", [1, 2, 3, 4])
     if st.button("Confirm Level"):
         st.session_state.level = level
         st.session_state.level_selected = True
