@@ -5,7 +5,7 @@ import random
 sdg_goals = [
     {"id": 1, "title": "No Poverty", "description": "End poverty in all its forms everywhere.", "questions": [
         {"question": "What percentage of the world's population lives in poverty?", "options": ["10%", "20%", "30%", "40%"], "correct": "10%"},
-        {"question": "Which country has the highest percentage of people living in poverty?", "options": ["India", "USA", "Nigeria", "China"], "correct": "Nigeria"}
+        {"question": "Which country has the highest percentage of people living in poverty?", "options": ["India", "USA", "Nigeria", "China"], "correct": "Nigeria"},
         {"question": "What is the international poverty line according to the World Bank?", "options": ["$1.90/day", "$2.50/day", "$3.00/day", "$5.00/day"], "correct": "$1.90/day"},
         {"question": "How many people live in extreme poverty globally?", "options": ["700 million", "1 billion", "1.3 billion", "2 billion"], "correct": "700 million"},
         {"question": "Which region has the highest number of people living in extreme poverty?", "options": ["Sub-Saharan Africa", "Asia", "Latin America", "Europe"], "correct": "Sub-Saharan Africa"}
