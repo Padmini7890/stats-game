@@ -3,16 +3,36 @@ import random
 import networkx as nx
 import matplotlib.pyplot as plt
 
-def generate_riddle_tasks():
-    """Generates a random set of tasks with durations and dependencies in riddle format."""
-    tasks = {
-        "A": ("The start of the journey, setting up the base.", random.randint(2, 6)),
-        "B": ("This task can only begin once A is done, crafting the framework.", random.randint(3, 7)),
-        "C": ("After B, we refine the details.", random.randint(2, 5)),
-        "D": ("When A is completed, this runs in parallel to B, creating support.", random.randint(4, 8)),
-        "E": ("C and D must be complete before we finalize everything.", random.randint(5, 9)),
-    }
-    dependencies = {"A": [], "B": ["A"], "C": ["B"], "D": ["A"], "E": ["C", "D"]}
+def generate_riddle_tasks(level):
+    """Generates a random set of tasks with durations and dependencies in riddle format based on level."""
+    if level == 1:
+        tasks = {
+            "A": ("Start of the journey.", random.randint(2, 4)),
+            "B": ("Begins after A.", random.randint(3, 5)),
+            "C": ("Depends on B.", random.randint(2, 4)),
+        }
+        dependencies = {"A": [], "B": ["A"], "C": ["B"]}
+    elif level == 2:
+        tasks = {
+            "A": ("Foundation setup.", random.randint(2, 6)),
+            "B": ("After A, create base structure.", random.randint(3, 7)),
+            "C": ("B must finish before refining.", random.randint(2, 5)),
+            "D": ("Parallel support, starts after A.", random.randint(4, 8)),
+            "E": ("C and D must complete before finishing.", random.randint(5, 9)),
+        }
+        dependencies = {"A": [], "B": ["A"], "C": ["B"], "D": ["A"], "E": ["C", "D"]}
+    else:
+        tasks = {
+            "A": ("Laying the foundation.", random.randint(3, 6)),
+            "B": ("Starting after A, assembling materials.", random.randint(4, 8)),
+            "C": ("B's completion allows design phase.", random.randint(3, 7)),
+            "D": ("Parallel to C, external setup.", random.randint(5, 9)),
+            "E": ("C must finish before quality testing.", random.randint(4, 7)),
+            "F": ("D and E must complete for final assembly.", random.randint(6, 10)),
+            "G": ("After F, final deployment.", random.randint(5, 8)),
+        }
+        dependencies = {"A": [], "B": ["A"], "C": ["B"], "D": ["B"], "E": ["C"], "F": ["D", "E"], "G": ["F"]}
+    
     return tasks, dependencies
 
 def calculate_critical_path(tasks, dependencies):
@@ -45,25 +65,30 @@ def show_graph(tasks, dependencies):
 
 st.title("Project Time Estimation Challenge")
 
-# Generate a new set of tasks and dependencies
-if "tasks" not in st.session_state:
-    st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks()
+# Select level
+if "level" not in st.session_state:
+    st.session_state.level = 1
+
+level = st.radio("Select Level:", [1, 2, 3], index=st.session_state.level - 1)
+st.session_state.level = level
+
+# Generate new tasks and dependencies if not already set
+if "tasks" not in st.session_state or st.session_state.level != level:
+    st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks(level)
     st.session_state.correct_time, st.session_state.critical_path = calculate_critical_path(
         st.session_state.tasks, st.session_state.dependencies
     )
     st.session_state.game_over = False
-    st.session_state.show_graph = True  # Show the graph initially
+    st.session_state.show_graph = True
 
 st.write("### Task Descriptions (Solve the Riddles!)")
 for task, (desc, duration) in st.session_state.tasks.items():
     st.write(f"**{task}:** {desc}")
 
-# Show network graph at the start
 if st.session_state.show_graph:
     st.write("### Project Dependency Graph")
     show_graph(st.session_state.tasks, st.session_state.dependencies)
 
-# User input for estimated time
 guess = st.number_input("Guess the least time needed to complete the project (in days):", min_value=1, step=1)
 if st.button("Submit Guess"):
     correct_time = st.session_state.correct_time
@@ -80,7 +105,6 @@ if st.button("Submit Guess"):
     else:
         st.warning("Not quite! Try again next time.")
     
-    # Store scores in leaderboard
     if "leaderboard" not in st.session_state:
         st.session_state.leaderboard = []
     st.session_state.leaderboard.append((guess, correct_time))
@@ -90,12 +114,11 @@ if "leaderboard" in st.session_state:
     for idx, (g, c) in enumerate(sorted(st.session_state.leaderboard, key=lambda x: abs(x[0] - x[1]))):
         st.write(f"{idx+1}. Guessed: {g} days | Correct: {c} days")
 
-# Reset Button
 if st.button("Reset Game"):
-    st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks()
+    st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks(st.session_state.level)
     st.session_state.correct_time, st.session_state.critical_path = calculate_critical_path(
         st.session_state.tasks, st.session_state.dependencies
     )
     st.session_state.game_over = False
-    st.session_state.show_graph = True  # Show the new graph after restart
+    st.session_state.show_graph = True
     st.rerun()
