@@ -135,7 +135,7 @@ cols = st.columns(3)  # Create a 3-column layout
 for index, goal in enumerate(sdg_goals):
     with cols[index % 3]:
         with st.container():
-            st.markdown(f"### {goal['title']}")
+            st.markdown(f"### {goal['emoji']} {goal['title']}")
             st.write(goal["description"])
             
             # Add a "Let's Start Quiz" button for each goal
