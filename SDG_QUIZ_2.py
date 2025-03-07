@@ -157,7 +157,7 @@ for index, goal in enumerate(sdg_goals):
                 answer = st.radio("Choose an answer:", question["options"], key=f"quiz_answer_{goal['id']}")
                 
                 if st.button("Submit Answer", key=f"submit_{goal['id']}"):
-                    if answer == question["answer"]:
+                    if answer == question["correct"]:
                         st.success("Correct! 🎉")
                         # Select a new question for the next round
                         st.session_state[f"quiz_question_{goal['id']}"] = random.choice(goal["questions"])
