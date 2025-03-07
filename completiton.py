@@ -47,7 +47,19 @@ def calculate_critical_path(tasks, dependencies):
     
     longest_path = nx.dag_longest_path(G)
     total_time = sum(tasks[task][1] for task in longest_path)
-    return total_time, longest_path
+    
+    # Compute Earliest Start and Latest Finish Times
+    earliest_start = {node: 0 for node in G.nodes()}
+    for node in nx.topological_sort(G):
+        for successor in G.successors(node):
+            earliest_start[successor] = max(earliest_start[successor], earliest_start[node] + tasks[node][1])
+    
+    latest_finish = {node: total_time for node in G.nodes()}
+    for node in reversed(list(nx.topological_sort(G))):
+        for predecessor in G.predecessors(node):
+            latest_finish[predecessor] = min(latest_finish[predecessor], latest_finish[node] - tasks[predecessor][1])
+    
+    return total_time, longest_path, earliest_start, latest_finish
 
 def show_graph(tasks, dependencies):
     """Displays a simple network graph of the project."""
@@ -81,7 +93,7 @@ else:
 
     if "tasks" not in st.session_state or st.session_state.level != level:
         st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks(level)
-        st.session_state.correct_time, st.session_state.critical_path = calculate_critical_path(
+        st.session_state.correct_time, st.session_state.critical_path, st.session_state.earliest_start, st.session_state.latest_finish = calculate_critical_path(
             st.session_state.tasks, st.session_state.dependencies
         )
         st.session_state.game_over = False
@@ -103,6 +115,10 @@ else:
         st.write(f"### Correct Time: {correct_time} days")
         st.write(f"Critical Path: {' → '.join(st.session_state.critical_path)}")
         
+        st.write("### Solution Explanation")
+        for task in st.session_state.critical_path:
+            st.write(f"**Task {task}:** Duration = {st.session_state.tasks[task][1]} days, Earliest Start = {st.session_state.earliest_start[task]} days, Latest Finish = {st.session_state.latest_finish[task]} days")
+        
         if abs(guess - correct_time) == 0:
             st.success("🎉 Perfect guess! Congratulations! 🎊")
             st.image("https://media.giphy.com/media/3o7TKsQYAVjXyG3hXa/giphy.gif")
@@ -123,7 +139,7 @@ else:
     if st.button("Reset Game"):
         st.session_state.level_selected = False
         st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks(st.session_state.level)
-        st.session_state.correct_time, st.session_state.critical_path = calculate_critical_path(
+        st.session_state.correct_time, st.session_state.critical_path, st.session_state.earliest_start, st.session_state.latest_finish = calculate_critical_path(
             st.session_state.tasks, st.session_state.dependencies
         )
         st.session_state.game_over = False
