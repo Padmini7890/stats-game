@@ -10,19 +10,19 @@ def generate_riddle_tasks(level):
     
     if level == 1:
         num_tasks = random.randint(4, 5)
-        max_dependencies = 1  # Only one interlink or two-direction task
+        max_dependencies = 2  # Ensuring at least one interlink or two-way task
     elif level == 2:
         num_tasks = random.randint(4, 6)
-        max_dependencies = 2  # More than 1-2 interlinks
+        max_dependencies = random.randint(2, 3)  # More interlinks
     elif level == 3:
         num_tasks = random.randint(6, 8)
-        max_dependencies = 1  # 1 or no interlink
+        max_dependencies = random.randint(1, 2)  # Some interlinks
     else:  # Extremely Hard Level
         num_tasks = random.randint(6, 8)
-        max_dependencies = 3  # More interlinks
+        max_dependencies = random.randint(3, num_tasks - 1)  # Higher interlinks
     
     tasks = {}
-    dependencies = {}
+    dependencies = {task_names[i]: [] for i in range(num_tasks)}
     
     for i in range(num_tasks):
         task = task_names[i]
@@ -30,10 +30,8 @@ def generate_riddle_tasks(level):
         duration = random.randint(3 + level, 6 + level * 2)
         tasks[task] = (description, duration)
         
-        if i == 0:
-            dependencies[task] = []  # First task has no dependencies
-        else:
-            num_dependencies = random.randint(0, min(i, max_dependencies))  # Control dependencies based on level
+        if i > 0:
+            num_dependencies = random.randint(1, min(i, max_dependencies))
             dependencies[task] = random.sample(task_names[:i], num_dependencies)
     
     return tasks, dependencies
@@ -81,7 +79,6 @@ if not st.session_state.level_selected:
 else:
     level = st.session_state.level
 
-    # Generate new tasks and dependencies if not already set
     if "tasks" not in st.session_state or st.session_state.level != level:
         st.session_state.tasks, st.session_state.dependencies = generate_riddle_tasks(level)
         st.session_state.correct_time, st.session_state.critical_path = calculate_critical_path(
