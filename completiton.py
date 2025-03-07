@@ -94,7 +94,7 @@ if st.button("Reset Game"):
     )
     st.session_state.game_over = False
     st.session_state.show_graph = False
-    st.experimental_rerun()
+    st.rerun()
 
 # Show network graph of dependencies only after restart
 if st.session_state.show_graph:
