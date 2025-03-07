@@ -70,7 +70,7 @@ def main():
         
         if st.button("Restart Game"):
             st.session_state.clear()
-            st.experimental_rerun()
+            st.rerun()
 
 if __name__ == "__main__":
     main()
