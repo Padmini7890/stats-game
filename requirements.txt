@@ -2,3 +2,4 @@ pygame
 matplotlib
 streamlit
 networkx
+scipy
