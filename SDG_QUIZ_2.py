@@ -163,7 +163,13 @@ for index, goal in enumerate(sdg_goals):
                         st.session_state[f"quiz_question_{goal['id']}"] = random.choice(goal["questions"])
                     else:
                         st.error(f"Incorrect. The correct answer is: {question['correct']} ❌")
-            
+                # Reset button
+                if st.button("Reset Quiz", key=f"reset_{goal['id']}"):
+                    # Reset quiz state
+                    st.session_state[f"quiz_started_{goal['id']}"] = False  # Reset quiz state
+                    st.session_state[f"quiz_question_{goal['id']}"] = None  # Clear the current question
+                    st.session_state[f"quiz_answer_{goal['id']}"] = None  # Clear the answer selection
+
             st.markdown("---")  # Add a horizontal line for separation
 
 # JSON API-like data preview
