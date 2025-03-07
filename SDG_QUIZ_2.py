@@ -157,15 +157,15 @@ for index, goal in enumerate(sdg_goals):
                 answer = st.radio("Choose an answer:", question["options"], key=f"quiz_answer_{goal['id']}")
                 
                 if st.button("Submit Answer", key=f"submit_{goal['id']}"):
-                    if answer == question["correct"]:
+                    if answer == question["answer"]:
                         st.success("Correct! 🎉")
                         # Select a new question for the next round
                         st.session_state[f"quiz_question_{goal['id']}"] = random.choice(goal["questions"])
                     else:
-                        st.error("Incorrect. Try again! ❌")
+                        st.error(f"Incorrect. The correct answer is: {question['answer']} ❌")
             
             st.markdown("---")  # Add a horizontal line for separation
 
 # JSON API-like data preview
-if st.checkbox("Show SDG Data (JSON format)") :
+if st.checkbox("Show SDG Data (JSON format)"):
     st.json(sdg_goals)
