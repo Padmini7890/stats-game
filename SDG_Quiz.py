@@ -1,7 +1,7 @@
 import streamlit as st
 import json
 
-# Sustainable Development Goals Data (with placeholder for images)
+# Sustainable Development Goals Data (without images)
 sdg_goals = [
     {"id": 1, "title": "No Poverty", "description": "End poverty in all its forms everywhere."},
     {"id": 2, "title": "Zero Hunger", "description": "End hunger, achieve food security and improved nutrition."},
@@ -36,12 +36,6 @@ for index, goal in enumerate(sdg_goals):
             st.markdown(f"### {goal['title']}")
             st.write(goal["description"])
 
-            # Image upload functionality
-            image_file = st.file_uploader(f"Upload image for {goal['title']}", type=["png", "jpg", "jpeg"], key=f"image_{goal['id']}")
-            
-            if image_file is not None:
-                st.image(image_file, use_column_width=True)  # Display uploaded image
-            
             # Add a "Let's Start Quiz" button for each goal
             if st.button(f"Let's Start Quiz! 📝", key=f"quiz_{goal['id']}"):
                 st.session_state["selected_sdg"] = goal["title"]
