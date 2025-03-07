@@ -3,7 +3,7 @@ import json
 
 # Sustainable Development Goals Data with images
 sdg_goals = [
-    {"id": 1, "title": "No Poverty", "description": "End poverty in all its forms everywhere.",
+    {"id": 1, "title": "No Poverty", "description": "End poverty in all its forms everywhere.", "image":
      "D:\Padmini MSc. Prev\game\E_SDG_PRINT-01.jpg"},
     {"id": 2, "title": "Zero Hunger", "description": "End hunger, achieve food security and improved nutrition.",
      "image": "https://upload.wikimedia.org/wikipedia/commons/4/42/SDG_logo_zero_hunger.png"},
