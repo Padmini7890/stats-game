@@ -26,19 +26,15 @@ sdg_goals = [
 st.title("🌍 Sustainable Development Goals (SDGs)")
 st.write("Explore the 17 Sustainable Development Goals set by the United Nations.")
 
-# Dropdown for SDG selection
-selected_goal = st.selectbox("Select an SDG Goal:", [goal["title"] for goal in sdg_goals])
-
-# Display the selected goal
-goal_data = next(goal for goal in sdg_goals if goal["title"] == selected_goal)
-st.subheader(f"**{goal_data['title']}**")
-st.write(goal_data["description"])
-
-# Start the Quiz Button
-if st.button("Let's Start the Quiz! 📝"):
-    st.session_state["quiz_started"] = True
-    st.session_state["selected_sdg"] = selected_goal
-    st.experimental_rerun()
+# Display SDG goals as rectangles
+for goal in sdg_goals:
+    with st.container():
+        st.markdown(f"### {goal['title']}")
+        st.write(goal["description"])
+        if st.button(f"Let's Start the Quiz! 📝", key=goal["id"]):
+            st.session_state["quiz_started"] = True
+            st.session_state["selected_sdg"] = goal["title"]
+            st.experimental_rerun()
 
 # Show Quiz Placeholder (You can replace this with actual quiz logic)
 if "quiz_started" in st.session_state and st.session_state["quiz_started"]:
