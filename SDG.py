@@ -23,7 +23,7 @@ def generate_riddle_tasks(level):
     
     for i in range(num_tasks):
         task = task_names[i]
-        description = f"Task {task} involves a crucial step in project completion. Estimate wisely!"
+        description = f"Task {task} involves a crucial step in project completion. Think strategically to estimate wisely!"
         duration = random.randint(3 + level, 6 + level * 2)
         tasks[task] = (description, duration)
         
@@ -102,6 +102,9 @@ else:
         
         st.write(f"### Correct Time: {correct_time} days")
         st.write(f"Critical Path: {' → '.join(st.session_state.critical_path)}")
+        
+        st.write("### Why is this the correct answer?")
+        st.write("The critical path consists of tasks that determine the total project duration. If any of these tasks are delayed, the entire project is delayed. Understanding dependencies and task durations is key to efficient project planning.")
         
         if abs(guess - correct_time) == 0:
             st.success(f"🎉 Perfect guess, {st.session_state.name}! Well done! 🎊")
