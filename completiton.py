@@ -9,11 +9,11 @@ def generate_riddle_tasks(level):
     random.shuffle(task_names)
     
     if level == 1:
-        num_tasks = 3
+        num_tasks = random.randint(3, 4)  # Level 1: 3 to 4 tasks
     elif level == 2:
-        num_tasks = 5
+        num_tasks = random.randint(5, 6)  # Level 2: 5 to 6 tasks
     else:
-        num_tasks = 7
+        num_tasks = random.randint(7, 8)  # Level 3: 7 to 8 tasks
     
     tasks = {}
     dependencies = {}
