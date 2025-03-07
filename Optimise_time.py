@@ -49,10 +49,11 @@ def main():
     if "game_started" in st.session_state:
         tasks, durations, dependencies, correct_time, G = st.session_state["project"]
         
-        st.subheader("Project Details:")
+        st.subheader("Project Riddles:")
         for task in tasks:
             dep_str = ", ".join(dependencies.get(task, ["Start"]))
-            st.write(f"Task {task}: {durations[task]} days (Starts after: {dep_str})")
+            riddle = f"A task takes {durations[task]} days to complete. It can only begin after {dep_str}. What task is it?"
+            st.write(riddle)
         
         user_guess = st.number_input("Guess the minimum project completion time (in days):", min_value=1, step=1)
         
