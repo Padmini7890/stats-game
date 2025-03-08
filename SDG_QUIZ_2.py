@@ -152,6 +152,10 @@ for index, goal in enumerate(sdg_goals):
                 # Select the first question when the quiz starts
                 st.session_state[f"quiz_question_{goal['id']}"] = random.choice(goal["questions"])
 
+                # Select 2 random questions when the quiz starts
+                st.session_state[f"quiz_questions_{goal['id']}"] = random.sample(goal["questions"], 2)
+                st.session_state[f"current_question_index_{goal['id']}"] = 0
+
             # Display quiz questions if the quiz has started
             if st.session_state.get(f"quiz_started_{goal['id']}", False):
                 st.subheader(f"Quiz for {goal['title']}")
